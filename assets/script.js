@@ -9,23 +9,63 @@
 
 var specialChar;
 var numbers;
-var upperCaseChar;
-var lowerCaseChar;
+var uppercaseChar;
+var lowercaseChar;
 
-var passLength = function() {
-    var passwordLength = prompt("How many characters would you like your password to be?");
+// console.log(passwordLength);
 
-    if (isNaN(passwordLength)) {
-        alert("Password length must be an integer (number)");
-        passLength();
-    } else if (passwordLength > 128 || passwordLength < 8) {
-        alert("Password length must be between 8 and 128 characters.");
-    } else {
-        return passwordLength;
-    }
+var buildString = function()  {
+  
+  var characters = "";
+  
+  specialChar = window.confirm("Would you like to use special characters?");
+  if (specialChar) {
+    characters += "!\"#$%&()*+,-./:;<=>?@[\\]^_{|}~";
+  }
+    
+  numbers = window.confirm("Would you like to use numbers?");
+  if (numbers) {
+    characters += "0123456789";
+  }
+
+  uppercaseChar = window.confirm("Would you like to allow uppercase characters?");
+  if (uppercaseChar) {
+    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+
+  lowercaseChar = window.confirm("Would you like to allow lowercase characters?");
+  if (lowercaseChar) {
+    characters += "abcdefghijklmnopqrstuvwxyz";
+  } 
+
+  return characters;
+
 }
 
-console.log(passLength);
+
+var generatePassword = function() {
+  var passwordLength = window.prompt("How many characters do you want your password to be?");
+  
+  do {
+    window.alert("Password length must be an integer (number) between 8 and 128.");
+    passwordLength = window.prompt("How many characters do you want your password to be?");
+  } while (passwordLength > 128 || passwordLength < 8 || isNaN(passwordLength));
+
+  var characters = buildString();
+
+  do {
+    window.alert("YOU MUST CHOOSE AT LEAST ONE.");
+    characters = buildString();
+  }
+  while (characters == "");
+
+  var result = "";
+  var charactersLength = characters.length;
+  for ( var i = 0; i < passwordLength; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 
 // Get references to the #generate element
