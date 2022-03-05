@@ -12,8 +12,6 @@ var numbers;
 var uppercaseChar;
 var lowercaseChar;
 
-// console.log(passwordLength);
-
 var buildString = function()  {
   
   var characters = "";
@@ -44,27 +42,26 @@ var buildString = function()  {
 
 
 var generatePassword = function() {
-  var passwordLength = window.prompt("How many characters do you want your password to be?");
-  
-  do {
-    window.alert("Password length must be an integer (number) between 8 and 128.");
-    passwordLength = window.prompt("How many characters do you want your password to be?");
-  } while (passwordLength > 128 || passwordLength < 8 || isNaN(passwordLength));
+    var passwordLength = window.prompt("How many characters do you want your password to be?");
 
-  var characters = buildString();
+    while (passwordLength > 128 || passwordLength < 8 || isNaN(passwordLength)) {
+        window.alert("Password length must be an integer (number) between 8 and 128.");
+        passwordLength = window.prompt("How many characters do you want your password to be?");
+    }
 
-  do {
-    window.alert("YOU MUST CHOOSE AT LEAST ONE.");
-    characters = buildString();
-  }
-  while (characters == "");
+    var characters = buildString();
 
-  var result = "";
-  var charactersLength = characters.length;
-  for ( var i = 0; i < passwordLength; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
+    while (characters === "") {
+        window.alert("YOU MUST CHOOSE AT LEAST ONE!");
+        characters = buildString();
+    }
+
+    var result = "";
+    var charactersLength = characters.length;
+    for ( var i = 0; i < passwordLength; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
 
